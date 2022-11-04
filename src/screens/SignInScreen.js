@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import { Image, StyleSheet, View } from 'react-native';
 import Input, {
   KeyboardTypes,
@@ -6,6 +7,9 @@ import Input, {
 import SafeInputView from '../components/SafeInputView';
 
 const SignInScreen = () => {
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+
   return (
     <SafeInputView>
       <View style={styles.container}>
@@ -15,12 +19,16 @@ const SignInScreen = () => {
           resizeMode={'cover'}
         />
         <Input
+          onChangeText={(text) => setEmail(text.trim())}
+          value={email}
           title={'emai'}
           placeholder={'your@email.com'}
           keyboardType={KeyboardTypes.EMAIL}
           returnKeyType={ReturnKeyTypes.NEXT}
         />
         <Input
+          onChangeText={(text) => setPassword(text.trim())}
+          value={password}
           title={'password'}
           returnKeyType={ReturnKeyTypes.DONE}
           secureTextEntry

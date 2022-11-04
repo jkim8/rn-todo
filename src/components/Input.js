@@ -17,6 +17,7 @@ const Input = ({
   // keyboardType,
   // returnKeyType,
   // secureTextEntry,
+  value,
   ...props
 }) => {
   return (
@@ -24,6 +25,7 @@ const Input = ({
       <Text style={styles.title}>{title}</Text>
       <TextInput
         {...props} //제일 위에 적어야 함 아래쪽에서 변경이 일어나지 않도록
+        value={value}
         style={styles.input}
         placeholder={placeholder ?? title}
         placeholderTextColor={'#a3a3a3'}
@@ -45,6 +47,7 @@ Input.defaultProps = {
 Input.propTypes = {
   title: propTypes.string,
   placeholder: propTypes.string,
+  value: propTypes.string,
   // keyboardType: propTypes.oneOf(Object.values(KeyboardTypes)),
   // returnKeyType: propTypes.oneOf(Object.values(ReturnKeyTypes)),
   // secureTextEntry: propTypes.bool,
