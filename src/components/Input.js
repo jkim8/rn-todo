@@ -23,7 +23,7 @@ const Input = ({
     <View style={styles.container}>
       <Text style={styles.title}>{title}</Text>
       <TextInput
-        {...props} //제일 위에 적어야 함
+        {...props} //제일 위에 적어야 함 아래쪽에서 변경이 일어나지 않도록
         style={styles.input}
         placeholder={placeholder ?? title}
         placeholderTextColor={'#a3a3a3'}
