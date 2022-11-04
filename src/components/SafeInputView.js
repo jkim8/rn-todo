@@ -5,7 +5,7 @@ import {
   Pressable,
   StyleSheet,
 } from 'react-native';
-import propTypes from 'prop-types';
+import PropTypes from 'prop-types';
 
 const SafeInputView = ({ children }) => {
   return (
@@ -19,9 +19,8 @@ const SafeInputView = ({ children }) => {
     </KeyboardAvoidingView>
   );
 };
-
 SafeInputView.propTypes = {
-  children: propTypes.node,
+  children: PropTypes.node,
 };
 
 const styles = StyleSheet.create({
