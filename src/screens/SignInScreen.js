@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { Image, StyleSheet, View } from 'react-native';
 import Input, {
+  IconNames,
   KeyboardTypes,
   ReturnKeyTypes,
 } from '../components/Input';
@@ -25,6 +26,7 @@ const SignInScreen = () => {
           placeholder={'your@email.com'}
           keyboardType={KeyboardTypes.EMAIL}
           returnKeyType={ReturnKeyTypes.NEXT}
+          iconName={IconNames.EMAIL}
         />
         <Input
           onChangeText={(text) => setPassword(text.trim())}
@@ -32,6 +34,7 @@ const SignInScreen = () => {
           title={'password'}
           returnKeyType={ReturnKeyTypes.DONE}
           secureTextEntry
+          iconName={IconNames.PASSWORD}
         />
       </View>
     </SafeInputView>
