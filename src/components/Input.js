@@ -1,7 +1,7 @@
 import { StyleSheet, Text, TextInput, View } from 'react-native';
 import PropTypes from 'prop-types';
 import { BLACK, GRAY, PRIMARY } from '../colors';
-import { useState } from 'react';
+import { forwardRef, useState } from 'react';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 
 export const KeyboardTypes = {
@@ -19,58 +19,63 @@ export const IconNames = {
   PASSWORD: 'lock',
 };
 
-const Input = ({ title, placeholder, value, iconName, ...props }) => {
-  const [isFocused, setIsFocused] = useState(false);
+const Input = forwardRef(
+  ({ title, placeholder, value, iconName, ...props }, ref) => {
+    const [isFocused, setIsFocused] = useState(false);
 
-  return (
-    <View style={styles.container}>
-      <Text
-        style={[
-          styles.title, // default
-          value && styles.hasValueTitle, // value
-          isFocused && styles.focusedTitle, // value + focus 조건이 많이 붙는 것을 마지막으로 한다
-        ]}
-      >
-        {title}
-      </Text>
-      <View>
-        <TextInput
-          {...props}
-          value={value}
+    return (
+      <View style={styles.container}>
+        <Text
           style={[
-            styles.input,
-            value && styles.hasValueInput,
-            isFocused && styles.focusedInput,
+            styles.title, // default
+            value && styles.hasValueTitle, // value
+            isFocused && styles.focusedTitle, // value + focus 조건이 많이 붙는 것을 마지막으로 한다
           ]}
-          placeholder={placeholder ?? title}
-          placeholderTextColor={GRAY.DEFAULT}
-          autoCapitalize={'none'}
-          autoCorrect={false}
-          textContentType={'none'}
-          keyboardAppearance={'light'}
-          onBlur={() => setIsFocused(false)}
-          onFocus={() => setIsFocused(true)}
-        />
-        <View style={styles.icon}>
-          <MaterialCommunityIcons
-            name={iconName}
-            size={20}
-            color={(() => {
-              switch (true) {
-                case isFocused:
-                  return PRIMARY.DEFAULT;
-                case !!value:
-                  return BLACK;
-                default:
-                  return GRAY.DEFAULT;
-              }
-            })()}
+        >
+          {title}
+        </Text>
+        <View>
+          <TextInput
+            ref={ref}
+            {...props}
+            value={value}
+            style={[
+              styles.input,
+              value && styles.hasValueInput,
+              isFocused && styles.focusedInput,
+            ]}
+            placeholder={placeholder ?? title}
+            placeholderTextColor={GRAY.DEFAULT}
+            autoCapitalize={'none'}
+            autoCorrect={false}
+            textContentType={'none'}
+            keyboardAppearance={'light'}
+            onBlur={() => setIsFocused(false)}
+            onFocus={() => setIsFocused(true)}
           />
+          <View style={styles.icon}>
+            <MaterialCommunityIcons
+              name={iconName}
+              size={20}
+              color={(() => {
+                switch (true) {
+                  case isFocused:
+                    return PRIMARY.DEFAULT;
+                  case !!value:
+                    return BLACK;
+                  default:
+                    return GRAY.DEFAULT;
+                }
+              })()}
+            />
+          </View>
         </View>
       </View>
-    </View>
-  );
-};
+    );
+  }
+);
+
+Input.displayName = 'Input';
 
 Input.defaultProps = {
   returnKeyType: ReturnKeyTypes.DONE,
