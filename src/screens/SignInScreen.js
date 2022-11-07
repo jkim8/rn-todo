@@ -1,5 +1,6 @@
 import { useRef, useState } from 'react';
 import { Image, StyleSheet, View } from 'react-native';
+import Button from '../components/Button';
 import Input, {
   IconNames,
   KeyboardTypes,
@@ -44,6 +45,9 @@ const SignInScreen = () => {
           iconName={IconNames.PASSWORD}
           onSubmitEditing={onSubmit}
         />
+        <View style={styles.buttonContainer}>
+          <Button title={'LOGIN'} onPress={onSubmit} />
+        </View>
       </View>
     </SafeInputView>
   );
@@ -58,6 +62,11 @@ const styles = StyleSheet.create({
   image: {
     width: 200,
     height: 200,
+  },
+  buttonContainer: {
+    width: '100%',
+    paddingHorizontal: 20,
+    marginTop: 20,
   },
 });
 
