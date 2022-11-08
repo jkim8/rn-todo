@@ -1,5 +1,5 @@
-const EMAIL = '1234';
-const PASSWORD = '1234';
+const EMAIL = '123';
+const PASSWORD = '123';
 
 export const signIn = (email, password) => {
   return new Promise((resolve, reject) => {

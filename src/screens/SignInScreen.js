@@ -3,7 +3,6 @@ import {
   Alert,
   Image,
   Keyboard,
-  Platform,
   StyleSheet,
   View,
 } from 'react-native';
@@ -16,12 +15,9 @@ import Input, {
 } from '../components/Input';
 import SafeInputView from '../components/SafeInputView';
 import PropTypes from 'prop-types';
-import {
-  SafeAreaView,
-  useSafeAreaInsets,
-} from 'react-native-safe-area-context';
+import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
-const SignInScreen = ({ navigation }) => {
+const SignInScreen = ({ navigation, setUser }) => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const passwordRef = useRef(null);
@@ -29,7 +25,6 @@ const SignInScreen = ({ navigation }) => {
   const [isLoading, setIsLoading] = useState(false);
 
   const insets = useSafeAreaInsets();
-  console.log(Platform.OS, insets);
 
   useEffect(() => {
     setDisabled(!email || !password);
@@ -40,16 +35,14 @@ const SignInScreen = ({ navigation }) => {
       Keyboard.dismiss();
       setIsLoading(true);
       try {
-        await signIn(email, password);
+        const data = await signIn(email, password);
         setIsLoading(false);
-        navigation.navigate('List');
+        setUser(data);
       } catch (e) {
-        Alert.alert('SignIn Error', e, [
+        Alert.alert('SignIn Failed', e, [
           {
             text: 'OK',
-            onPress: () => {
-              setIsLoading(false);
-            },
+            onPress: () => setIsLoading(false),
           },
         ]);
       }
@@ -59,10 +52,10 @@ const SignInScreen = ({ navigation }) => {
   return (
     <SafeInputView>
       <View
-        style={
-          (styles.container,
-          { paddingTop: insets.top, paddingBottom: insets.bottom })
-        }
+        style={[
+          styles.container,
+          { paddingTop: insets.top, paddingBottom: insets.bottom },
+        ]}
       >
         <Image
           source={require('../../assets/main.png')}
