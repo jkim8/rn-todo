@@ -14,20 +14,23 @@ const SignInScreen = () => {
   const [password, setPassword] = useState('');
   const passwordRef = useRef(null);
   const [disabled, setDisabled] = useState(true);
+  const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
     setDisabled(!email || !password);
   }, [email, password]);
 
   const onSubmit = async () => {
-    if (!disabled) {
+    if (!disabled && !isLoading) {
       Keyboard.dismiss();
+      setIsLoading(true);
       try {
         const data = await signIn(email, password);
         console.log(data);
       } catch (e) {
         console.log(e);
       }
+      setIsLoading(false);
     }
   };
 
@@ -65,6 +68,7 @@ const SignInScreen = () => {
             title={'LOGIN'}
             onPress={onSubmit}
             disabled={disabled}
+            isLoading={isLoading}
           />
         </View>
       </View>
