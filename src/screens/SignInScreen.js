@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState } from 'react';
 import { Image, Keyboard, StyleSheet, View } from 'react-native';
+import { signIn } from '../api/auth';
 import Button from '../components/Button';
 import Input, {
   IconNames,
@@ -18,10 +19,15 @@ const SignInScreen = () => {
     setDisabled(!email || !password);
   }, [email, password]);
 
-  const onSubmit = () => {
+  const onSubmit = async () => {
     if (!disabled) {
       Keyboard.dismiss();
-      console.log('onSubmit');
+      try {
+        const data = await signIn(email, password);
+        console.log(data);
+      } catch (e) {
+        console.log(e);
+      }
     }
   };
 
