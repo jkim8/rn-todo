@@ -14,8 +14,9 @@ import Input, {
   ReturnKeyTypes,
 } from '../components/Input';
 import SafeInputView from '../components/SafeInputView';
+import PropTypes from 'prop-types';
 
-const SignInScreen = () => {
+const SignInScreen = ({ navigation }) => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const passwordRef = useRef(null);
@@ -31,9 +32,9 @@ const SignInScreen = () => {
       Keyboard.dismiss();
       setIsLoading(true);
       try {
-        const data = await signIn(email, password);
-        console.log(data);
+        await signIn(email, password);
         setIsLoading(false);
+        navigation.navigate('List');
       } catch (e) {
         Alert.alert('SignIn Error', e, [
           {
@@ -87,6 +88,10 @@ const SignInScreen = () => {
       </View>
     </SafeInputView>
   );
+};
+
+SignInScreen.propTypes = {
+  navigation: PropTypes.object,
 };
 
 const styles = StyleSheet.create({
