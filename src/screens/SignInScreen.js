@@ -1,5 +1,11 @@
 import { useEffect, useRef, useState } from 'react';
-import { Image, Keyboard, StyleSheet, View } from 'react-native';
+import {
+  Alert,
+  Image,
+  Keyboard,
+  StyleSheet,
+  View,
+} from 'react-native';
 import { signIn } from '../api/auth';
 import Button from '../components/Button';
 import Input, {
@@ -27,10 +33,17 @@ const SignInScreen = () => {
       try {
         const data = await signIn(email, password);
         console.log(data);
+        setIsLoading(false);
       } catch (e) {
-        console.log(e);
+        Alert.alert('SignIn Error', e, [
+          {
+            text: 'OK',
+            onPress: () => {
+              setIsLoading(false);
+            },
+          },
+        ]);
       }
-      setIsLoading(false);
     }
   };
 
