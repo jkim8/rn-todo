@@ -1,4 +1,4 @@
-const EMAIL = 'juno0218@naver.com';
+const EMAIL = '1234';
 const PASSWORD = '1234';
 
 export const signIn = (email, password) => {
