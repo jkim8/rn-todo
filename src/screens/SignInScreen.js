@@ -14,7 +14,6 @@ import Input, {
   ReturnKeyTypes,
 } from '../components/Input';
 import SafeInputView from '../components/SafeInputView';
-import PropTypes from 'prop-types';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { useUserContext } from '../contexts/UserContext';
 
@@ -38,7 +37,6 @@ const SignInScreen = () => {
       setIsLoading(true);
       try {
         const data = await signIn(email, password);
-        setIsLoading(false);
         setUser(data);
       } catch (e) {
         Alert.alert('SignIn Failed', e, [
@@ -90,7 +88,7 @@ const SignInScreen = () => {
 
         <View style={styles.buttonContainer}>
           <Button
-            title={'LOGIN'}
+            title={'SIGNIN'}
             onPress={() => onSubmit(setUser)}
             disabled={disabled}
             isLoading={isLoading}
@@ -99,10 +97,6 @@ const SignInScreen = () => {
       </View>
     </SafeInputView>
   );
-};
-
-SignInScreen.propTypes = {
-  navigation: PropTypes.object,
 };
 
 const styles = StyleSheet.create({
